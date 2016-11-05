@@ -110,9 +110,7 @@ public class Player extends Entity{
 	@Override
 	public void render(Graphics g) {
 		
-		//g.setColor(Color.red);
-		//g.fillRect(x, y, WIDTH, HEIGHT);
-		//g.drawImage(img, x, y, null);
+
 		
 		g.drawImage(animCurrent.getFrame(), x, y, null);
 		
