@@ -9,15 +9,21 @@ import java.awt.image.BufferStrategy;
 
 
 import ua.ghost.labirint.entities.Player;
+import ua.ghost.labirint.gfx.FloorTile;
+import ua.ghost.labirint.gfx.ImageStorage;
+import ua.ghost.labirint.gfx.Tile;
+import ua.ghost.labirint.gfx.WallTile;
 import ua.ghost.mylibrary.Log;
 
 public class Game extends Canvas implements Runnable  {
 	
-	public static final int WIDTH=800, HEIGHT=600;
+	public static final int WIDTH=25*GameState.TILE_W, HEIGHT=18*GameState.TILE_H;
 	private boolean started = false;
 	
 	
-	Player player;
+	private Player player;
+	private Tile floor1, wall1 ;
+	
 	
 	public Game(){
 		
@@ -47,6 +53,9 @@ public class Game extends Canvas implements Runnable  {
 public synchronized void startGame(){
 		Log.d("Game", "Игра стартовала");
 		
+		new ImageStorage();
+		floor1=new FloorTile(10, 10);
+		wall1=new WallTile(35, -5);
 		player = new Player(200, 200);
 		Thread gameThread = new Thread(this);
 		started=true;
@@ -111,8 +120,14 @@ public synchronized void startGame(){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		//Рисовать тута
-
+		
+		
+		floor1.render(g);
+		wall1.render(g);
 		player.render(g);
+		//g.drawImage(GameState.imageStorage.getImage("стена"), 10, 20, null);
+		
+		
 		
 		//*********
 		
