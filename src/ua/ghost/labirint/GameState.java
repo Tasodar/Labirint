@@ -9,8 +9,14 @@ public class GameState {
 	public static KeyboardState keyMap = new KeyboardState();
 	public static ImageStorage imageStorage=null;
 	
+	public static Level currentLevel=null;
+	
 	public static void setImageStorage(ImageStorage is){
 		imageStorage = is;
+	}
+	
+	public static void setCurrentLevel(Level level){
+		currentLevel = level;
 	}
 	
 	

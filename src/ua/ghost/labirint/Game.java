@@ -22,7 +22,8 @@ public class Game extends Canvas implements Runnable  {
 	
 	
 	private Player player;
-	private Tile floor1, wall1 ;
+	//private Tile floor1, wall1 ;
+	private Level room;
 	
 	
 	public Game(){
@@ -54,8 +55,10 @@ public synchronized void startGame(){
 		Log.d("Game", "Игра стартовала");
 		
 		new ImageStorage();
-		floor1=new FloorTile(10, 10);
-		wall1=new WallTile(35, -5);
+		//floor1=new FloorTile(10, 10);
+		//wall1=new WallTile(35, -5);
+		
+		room=new Level();
 		player = new Player(200, 200);
 		Thread gameThread = new Thread(this);
 		started=true;
@@ -122,8 +125,11 @@ public synchronized void startGame(){
 		//Рисовать тута
 		
 		
-		floor1.render(g);
-		wall1.render(g);
+		//floor1.render(g);
+		//wall1.render(g);
+		
+		room.render(g);
+		
 		player.render(g);
 		//g.drawImage(GameState.imageStorage.getImage("стена"), 10, 20, null);
 		

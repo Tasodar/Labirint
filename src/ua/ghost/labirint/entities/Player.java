@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import ua.ghost.labirint.Game;
 import ua.ghost.labirint.GameState;
 import ua.ghost.labirint.gfx.Animation;
+import ua.ghost.labirint.gfx.Tile;
 import ua.ghost.mylibrary.ImageLoader;
 import ua.ghost.mylibrary.Log;
 
@@ -95,6 +96,8 @@ public class Player extends Entity{
 			velY+=speed;
 		}
 		
+		checkStep();
+		
 		x+=velX;
 		y+=velY;
 		
@@ -107,16 +110,35 @@ public class Player extends Entity{
 		
 	}
 
+	
+	private void checkStep(){
+		
+		int nextX=(int) (x+velX);
+		int nextY=(int) (y+velY);
+		
+		if(velX>0){
+			Tile forTest=GameState.currentLevel.getTileIn(nextX+32, y);
+			if(forTest.solid) velX=0;
+		}
+		if(velX<0){
+			Tile forTest=GameState.currentLevel.getTileIn(nextX, y);
+			if(forTest.solid) velX=0;
+		}
+		if(velY>0){
+			Tile forTest=GameState.currentLevel.getTileIn(x, nextY+32);
+			if(forTest.solid) velY=0;
+		}
+		if(velY<0){
+			Tile forTest=GameState.currentLevel.getTileIn(x, nextY);
+			if(forTest.solid) velY=0;
+		}
+		
+	}
+	
+	
 	@Override
 	public void render(Graphics g) {
-		
-
-		
 		g.drawImage(animCurrent.getFrame(), x, y, null);
-		
-		
-		
-		
 	}
 	
 	private void setLookTo(int newLook){

@@ -8,6 +8,7 @@ public abstract class Tile {
 
 	protected int x, y;
 	protected String name;
+	public boolean solid=false;
 	
 	public Tile(int x, int y){
 		this.x=x;
