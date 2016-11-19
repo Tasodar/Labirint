@@ -120,16 +120,34 @@ public class Player extends Entity{
 			Tile forTest=GameState.currentLevel.getTileIn(nextX+32, y);
 			if(forTest.solid) velX=0;
 		}
+		if(velX>0){
+			Tile forTest=GameState.currentLevel.getTileIn(nextX+32, y+32);
+			if(forTest.solid) velX=0;
+		}
+		
 		if(velX<0){
 			Tile forTest=GameState.currentLevel.getTileIn(nextX, y);
 			if(forTest.solid) velX=0;
 		}
+		if(velX<0){
+			Tile forTest=GameState.currentLevel.getTileIn(nextX, y+32);
+			if(forTest.solid) velX=0;
+		}
+		
 		if(velY>0){
 			Tile forTest=GameState.currentLevel.getTileIn(x, nextY+32);
 			if(forTest.solid) velY=0;
 		}
+		if(velY>0){
+			Tile forTest=GameState.currentLevel.getTileIn(x+32, nextY+32);
+			if(forTest.solid) velY=0;
+		}
 		if(velY<0){
 			Tile forTest=GameState.currentLevel.getTileIn(x, nextY);
+			if(forTest.solid) velY=0;
+		}
+		if(velY<0){
+			Tile forTest=GameState.currentLevel.getTileIn(x+32, nextY);
 			if(forTest.solid) velY=0;
 		}
 		
