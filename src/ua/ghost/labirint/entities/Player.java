@@ -71,42 +71,11 @@ public class Player extends Entity{
 	@Override
 	public void tick() {
 		
-		velX=0;
-		velY=0;
-		
-		animCurrent.stop();
-		
-		if(GameState.keyMap.getKey(KeyEvent.VK_A)){
-			setLookTo(LOOK_LEFT);
-			velX-=speed;
-		}
-		
-		if(GameState.keyMap.getKey(KeyEvent.VK_D)){
-			setLookTo(LOOK_RIGHT);
-			velX+=speed;
-		}
-		
-		if(GameState.keyMap.getKey(KeyEvent.VK_W)){
-			setLookTo(LOOK_UP);
-			velY-=speed;
-		}
-		
-		if(GameState.keyMap.getKey(KeyEvent.VK_S)){
-			setLookTo(LOOK_DOWN);
-			velY+=speed;
-		}
-		
-		checkStep();
-		
-		x+=velX;
-		y+=velY;
-		
 		if(x<0) x=0;
 		if(x>Game.WIDTH-this.WIDTH) x=Game.WIDTH-this.WIDTH;
 		if(y<0) y=0;
 		if(y>Game.HEIGHT-HEIGHT) y=Game.HEIGHT-HEIGHT;
 		
-		animCurrent.tick();
 		
 	}
 

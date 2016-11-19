@@ -40,12 +40,17 @@ public class Game extends Canvas implements Runnable  {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				GameState.keyMap.setKey(e.getKeyCode(), false);
+				//GameState.keyMap.setKey(e.getKeyCode(), false);
+				
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				GameState.keyMap.setKey(e.getKeyCode(), true);
+				//GameState.keyMap.setKey(e.getKeyCode(), true);
+				if(e.getKeyCode()==KeyEvent.VK_A) player.setX(player.getX()-GameState.TILE_W);
+				if(e.getKeyCode()==KeyEvent.VK_D) player.setX(player.getX()+GameState.TILE_W);
+				if(e.getKeyCode()==KeyEvent.VK_W) player.setY(player.getY()-GameState.TILE_H);
+				if(e.getKeyCode()==KeyEvent.VK_S) player.setY(player.getY()+GameState.TILE_H);
 				
 			}
 		});
@@ -59,7 +64,7 @@ public synchronized void startGame(){
 		//wall1=new WallTile(35, -5);
 		
 		room=new Level();
-		player = new Player(200, 200);
+		player = new Player(10*GameState.TILE_W, 10*GameState.TILE_H);
 		Thread gameThread = new Thread(this);
 		started=true;
 		gameThread.start();
