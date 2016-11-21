@@ -22,6 +22,8 @@ public class Player extends Entity{
 	
 	public static final int LOOK_DOWN=0, LOOK_LEFT=1, LOOK_RIGHT=2, LOOK_UP=3;
 	private int lookTo=LOOK_DOWN;
+	private boolean inStep=false;
+	private int steps=0;
 	
 	
 	public Player(int x, int y){
@@ -70,6 +72,34 @@ public class Player extends Entity{
 
 	@Override
 	public void tick() {
+		
+		if(inStep){
+			steps++;
+			switch(lookTo){
+			case (LOOK_LEFT):
+				x-=2;
+				break;
+			case (LOOK_RIGHT):
+				x+=2;
+				break;
+			case (LOOK_UP):
+				y-=2;
+				break;
+			case (LOOK_DOWN):
+				y+=2;
+				break;
+			}
+			if(steps>=16){
+				inStep=false;
+				steps=0;
+				animCurrent.stop();
+			}
+			
+		}
+		
+		
+		
+		animCurrent.tick();
 		
 		if(x<0) x=0;
 		if(x>Game.WIDTH-this.WIDTH) x=Game.WIDTH-this.WIDTH;
@@ -149,8 +179,26 @@ public class Player extends Entity{
 			animCurrent = animUp;
 			break;
 		}
-		animCurrent.start();
+		//animCurrent.start();
 		
 	}
+	
+	public void step(int direct){
+		
+		if(inStep) return;
+		
+		if(lookTo!=direct){
+			setLookTo(direct);
+			return;
+		}
+		
+		inStep=true;
+		animCurrent.start();
+		steps=0;
+		
+	}
+	
+	
+	
 
 }
