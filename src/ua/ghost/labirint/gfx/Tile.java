@@ -1,24 +1,22 @@
 package ua.ghost.labirint.gfx;
 
-import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import ua.ghost.labirint.GameState;
+public class Tile {
 
-public abstract class Tile {
-
-	protected int x, y;
-	protected String name;
 	public boolean solid=false;
+	public BufferedImage img;
 	
-	public Tile(int x, int y){
-		this.x=x;
-		this.y=y;
+	public Tile(BufferedImage img, boolean solid){
+		
+		this.img=img;
+		this.solid=solid;
 	}
 	
-	public void render(Graphics g){
-		g.drawImage(GameState.imageStorage.getImage(name), x, y, null);
+	public BufferedImage getImg(){
+		return img;
 	}
 	
-	public abstract void tick();
+	
 	
 }

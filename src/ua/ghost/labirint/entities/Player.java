@@ -77,16 +77,16 @@ public class Player extends Entity{
 			steps++;
 			switch(lookTo){
 			case (LOOK_LEFT):
-				x-=2;
+				if(checkStep(x-2, y+16)) x-=2;
 				break;
 			case (LOOK_RIGHT):
-				x+=2;
+				if(checkStep(x+2+GameState.TILE_W, y+16)) x+=2;
 				break;
 			case (LOOK_UP):
-				y-=2;
+				if(checkStep(x+16, y-2)) y-=2;
 				break;
 			case (LOOK_DOWN):
-				y+=2;
+				if(checkStep(x+16, y+2+GameState.TILE_H)) y+=2;
 				break;
 			}
 			if(steps>=16){
@@ -110,45 +110,12 @@ public class Player extends Entity{
 	}
 
 	
-	private void checkStep(){
+	private boolean checkStep(int newX, int newY){
 		
-		int nextX=(int) (x+velX);
-		int nextY=(int) (y+velY);
+		Tile stepTo=GameState.currentLevel.getTileIn(newX, newY);
 		
-		if(velX>0){
-			Tile forTest=GameState.currentLevel.getTileIn(nextX+32, y);
-			if(forTest.solid) velX=0;
-		}
-		if(velX>0){
-			Tile forTest=GameState.currentLevel.getTileIn(nextX+32, y+32);
-			if(forTest.solid) velX=0;
-		}
 		
-		if(velX<0){
-			Tile forTest=GameState.currentLevel.getTileIn(nextX, y);
-			if(forTest.solid) velX=0;
-		}
-		if(velX<0){
-			Tile forTest=GameState.currentLevel.getTileIn(nextX, y+32);
-			if(forTest.solid) velX=0;
-		}
-		
-		if(velY>0){
-			Tile forTest=GameState.currentLevel.getTileIn(x, nextY+32);
-			if(forTest.solid) velY=0;
-		}
-		if(velY>0){
-			Tile forTest=GameState.currentLevel.getTileIn(x+32, nextY+32);
-			if(forTest.solid) velY=0;
-		}
-		if(velY<0){
-			Tile forTest=GameState.currentLevel.getTileIn(x, nextY);
-			if(forTest.solid) velY=0;
-		}
-		if(velY<0){
-			Tile forTest=GameState.currentLevel.getTileIn(x+32, nextY);
-			if(forTest.solid) velY=0;
-		}
+		return !stepTo.solid;
 		
 	}
 	

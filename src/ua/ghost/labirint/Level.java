@@ -1,19 +1,19 @@
 package ua.ghost.labirint;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import ua.ghost.labirint.gfx.FloorTile;
 import ua.ghost.labirint.gfx.Tile;
-import ua.ghost.labirint.gfx.WallTile;
+
 
 public class Level {
 	
-	private Tile[] storage;
+	private int[] levelData ;
 	private int width=25, height=18;
 	
 	public Level(){
 		
-		storage=new Tile[width*height];
+		levelData=new int[width*height];
 		
 		loadLevel();
 		
@@ -30,14 +30,16 @@ public class Level {
 				
 				
 				if(xInTiles==12 && yInTiles==9){
-					storage[tileCount]=new WallTile(xInTiles*GameState.TILE_W, yInTiles*GameState.TILE_H);
+					
+					levelData[tileCount]=1;
+					
 					tileCount++;
 					continue;
 					
 				}else if(yInTiles==0 || yInTiles==height-1 || xInTiles==0 || xInTiles==width-1){
-					storage[tileCount]=new WallTile(xInTiles*GameState.TILE_W, yInTiles*GameState.TILE_H);
+					levelData[tileCount]=1;
 				}else{
-					storage[tileCount]=new FloorTile(xInTiles*GameState.TILE_W, yInTiles*GameState.TILE_H);
+					levelData[tileCount]=0;
 				}
 				
 				tileCount++;
@@ -55,8 +57,14 @@ public class Level {
 	
 	public void render(Graphics g){
 		
-		for(int i=0; i<storage.length; i++){
-			if(storage[i]!=null) storage[i].render(g);
+		for(int i=0; i<levelData.length; i++){
+			int y=i/width;
+			int x=i%width;
+			
+			int tileIndex=levelData[i];
+			BufferedImage img=GameState.tileStorage.getTile(tileIndex).getImg();
+			
+			g.drawImage(img, x*GameState.TILE_W, y*GameState.TILE_H, null);
 			
 		}
 		
@@ -69,8 +77,9 @@ public class Level {
 		
 		int index = tileY*width+tileX;
 		
+		int tileIndex=levelData[index];
 		
-		return storage[index];
+		return GameState.tileStorage.getTile(tileIndex);
 	}
 	
 	

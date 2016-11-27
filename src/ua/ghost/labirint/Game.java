@@ -7,12 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
-
 import ua.ghost.labirint.entities.Player;
-import ua.ghost.labirint.gfx.FloorTile;
-import ua.ghost.labirint.gfx.ImageStorage;
-import ua.ghost.labirint.gfx.Tile;
-import ua.ghost.labirint.gfx.WallTile;
+import ua.ghost.labirint.gfx.TileStorage;
 import ua.ghost.mylibrary.Log;
 
 public class Game extends Canvas implements Runnable  {
@@ -61,7 +57,7 @@ public class Game extends Canvas implements Runnable  {
 public synchronized void startGame(){
 		Log.d("Game", "Игра стартовала");
 		
-		new ImageStorage();
+		new TileStorage();
 		//floor1=new FloorTile(10, 10);
 		//wall1=new WallTile(35, -5);
 		
