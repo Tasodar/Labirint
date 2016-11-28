@@ -12,7 +12,10 @@ public class TileStorage {
 	public TileStorage(){
 		storage = new ArrayList<Tile>();
 		
-		Tile temp = new Tile(ImageLoader.loadImage("/tile.png"), false);
+		Tile temp = new Tile(ImageLoader.loadImage("/error.png"), false);
+		storage.add(temp);
+		
+		temp = new Tile(ImageLoader.loadImage("/tile.png"), false);
 		storage.add(temp);
 		temp = new Tile(ImageLoader.loadImage("/brick.png"), true);
 		storage.add(temp);
@@ -22,6 +25,7 @@ public class TileStorage {
 	}
 	
 	public Tile getTile(int index){
+		if(index<0 || index>=storage.size()) index=0; 
 		return storage.get(index);
 	}
 

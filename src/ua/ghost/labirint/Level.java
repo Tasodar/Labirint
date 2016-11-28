@@ -31,15 +31,15 @@ public class Level {
 				
 				if(xInTiles==12 && yInTiles==9){
 					
-					levelData[tileCount]=1;
+					levelData[tileCount]=4;
 					
 					tileCount++;
 					continue;
 					
 				}else if(yInTiles==0 || yInTiles==height-1 || xInTiles==0 || xInTiles==width-1){
-					levelData[tileCount]=1;
+					levelData[tileCount]=2;
 				}else{
-					levelData[tileCount]=0;
+					levelData[tileCount]=1;
 				}
 				
 				tileCount++;

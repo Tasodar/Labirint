@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 import ua.ghost.labirint.entities.Player;
+import ua.ghost.labirint.entities.TestMob;
 import ua.ghost.labirint.gfx.TileStorage;
 import ua.ghost.mylibrary.Log;
 
@@ -18,6 +19,7 @@ public class Game extends Canvas implements Runnable  {
 	
 	
 	private Player player;
+	private TestMob mob;
 	//private Tile floor1, wall1 ;
 	private Level room;
 	
@@ -63,6 +65,9 @@ public synchronized void startGame(){
 		
 		room=new Level();
 		player = new Player(10*GameState.TILE_W, 10*GameState.TILE_H);
+		mob=new TestMob(5*GameState.TILE_W, 5*GameState.TILE_H);
+		
+		
 		Thread gameThread = new Thread(this);
 		started=true;
 		gameThread.start();
@@ -132,8 +137,8 @@ public synchronized void startGame(){
 		//wall1.render(g);
 		
 		room.render(g);
-		
 		player.render(g);
+		mob.render(g);
 		//g.drawImage(GameState.imageStorage.getImage("стена"), 10, 20, null);
 		
 		
@@ -146,6 +151,7 @@ public synchronized void startGame(){
 	
 	private void tic(){
 		player.tick();
+		mob.tick();
 	}
 	
 

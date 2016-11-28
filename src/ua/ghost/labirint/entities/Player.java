@@ -35,6 +35,7 @@ public class Player extends Entity{
 		
 		initAnimation();
 		
+		GameState.setPlaye(this);
 	}
 	
 	
