@@ -38,14 +38,11 @@ public class Game extends Canvas implements Runnable  {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				//GameState.keyMap.setKey(e.getKeyCode(), false);
 				
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				//GameState.keyMap.setKey(e.getKeyCode(), true);
-				
 				
 				if(e.getKeyCode()==KeyEvent.VK_A) player.step(Player.LOOK_LEFT);
 				if(e.getKeyCode()==KeyEvent.VK_D) player.step(Player.LOOK_RIGHT);
