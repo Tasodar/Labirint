@@ -1,6 +1,7 @@
 package ua.ghost.labirint;
 
 import ua.ghost.labirint.entities.Player;
+import ua.ghost.labirint.gfx.EntityStorage;
 import ua.ghost.labirint.gfx.TileStorage;
 
 public class GameState {
@@ -10,6 +11,7 @@ public class GameState {
 	public static KeyboardState keyMap = new KeyboardState();
 	public static TileStorage tileStorage=null;
 	public static Player player=null;
+	public static EntityStorage mobs=null;
 	
 	public static Level currentLevel=null;
 	
@@ -26,4 +28,7 @@ public class GameState {
 	}
 	
 	
+	public static void setMobStorage(EntityStorage storage){
+		mobs = storage;
+	}
 }

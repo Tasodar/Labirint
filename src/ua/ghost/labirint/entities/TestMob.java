@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import ua.ghost.labirint.GameState;
 import ua.ghost.mylibrary.ImageLoader;
 
-public class TestMob extends Entity{
+public class TestMob extends Alive{
 
 	private BufferedImage img;
 	private final Player player=GameState.player;
@@ -18,13 +18,17 @@ public class TestMob extends Entity{
 		
 		img=ImageLoader.loadImage("/monster01.png");
 		
+		maxHits=30;
+		hits=maxHits;
+		baseDamage=1;
+		
 	}
 	
 	
 	@Override
 	public void tick() {
 		
-		if(player.getX()<=x+32+10 && player.getY()==y) x-=32;
+		//if(player.getX()<=x+32+10 && player.getY()==y && player.getX()>x) x-=32;
 		
 	}
 

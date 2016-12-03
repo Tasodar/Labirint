@@ -12,7 +12,7 @@ import ua.ghost.labirint.gfx.Tile;
 import ua.ghost.mylibrary.ImageLoader;
 import ua.ghost.mylibrary.Log;
 
-public class Player extends Entity{
+public class Player extends Alive{
 	
 	private BufferedImage set;
 	private BufferedImage img;
@@ -34,6 +34,11 @@ public class Player extends Entity{
 		img=set.getSubimage(0, 0, 32, 32);
 		
 		initAnimation();
+		
+		maxHits=100;
+		hits=maxHits;
+		baseDamage=1;
+		
 		
 		GameState.setPlaye(this);
 	}
