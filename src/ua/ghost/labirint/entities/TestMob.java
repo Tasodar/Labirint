@@ -28,7 +28,8 @@ public class TestMob extends Alive{
 	@Override
 	public void tick() {
 		
-		//if(player.getX()<=x+32+10 && player.getY()==y && player.getX()>x) x-=32;
+		if(player.getX()<=x+32+10 && player.getX()>x && player.getY()==y ) x-=32;
+		if(player.getX()<=x-32-10 && player.getX()>x && player.getY()==y ) x+=32;
 		
 	}
 
@@ -36,6 +37,11 @@ public class TestMob extends Alive{
 	public void render(Graphics g) {
 		g.drawImage(img, x, y, null);
 		
+	}
+	
+	@Override
+	public void touch(){
+		GameState.player.hit(baseDamage);
 	}
 
 }

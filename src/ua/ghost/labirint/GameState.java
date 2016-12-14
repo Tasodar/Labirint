@@ -12,6 +12,7 @@ public class GameState {
 	public static TileStorage tileStorage=null;
 	public static Player player=null;
 	public static EntityStorage mobs=null;
+	public static Game game=null;
 	
 	public static Level currentLevel=null;
 	
@@ -30,5 +31,9 @@ public class GameState {
 	
 	public static void setMobStorage(EntityStorage storage){
 		mobs = storage;
+	}
+	
+	public static void setGame(Game newGame){
+		game=newGame;
 	}
 }

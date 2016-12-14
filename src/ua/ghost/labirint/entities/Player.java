@@ -39,6 +39,7 @@ public class Player extends Alive{
 		hits=maxHits;
 		baseDamage=1;
 		
+		GameState.game.info.setHits(hits+"");
 		
 		GameState.setPlaye(this);
 	}
@@ -118,9 +119,17 @@ public class Player extends Alive{
 	
 	private boolean checkStep(int newX, int newY){
 		
+		Entity mob=GameState.mobs.getEntityIn(newX, newY);
+		if(mob!=null){
+			inStep=false;
+			animCurrent.stop();
+			steps=0;
+			
+			mob.touch();
+			return false;
+		} 
+		
 		Tile stepTo=GameState.currentLevel.getTileIn(newX, newY);
-		
-		
 		return !stepTo.solid;
 		
 	}
@@ -169,6 +178,15 @@ public class Player extends Alive{
 		animCurrent.start();
 		steps=0;
 		
+	}
+	
+	
+	public void hit(int damage){
+		hits-=damage;
+		GameState.game.info.setHits(hits+"");
+		
+		
+		Log.d("Player", "Меня укусили на "+damage+" хитов");
 	}
 	
 	

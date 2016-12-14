@@ -2,6 +2,8 @@ package ua.ghost.labirint.entities;
 
 import java.awt.Graphics;
 
+import ua.ghost.mylibrary.Log;
+
 public abstract class Entity {
 
 	protected int x, y;
@@ -30,5 +32,8 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
+	public void touch(){
+		Log.d("Alive", "Touch!");
+	}
 	
 }

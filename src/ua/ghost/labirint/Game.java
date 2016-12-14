@@ -7,8 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.JLabel;
+
 import ua.ghost.labirint.entities.Player;
-import ua.ghost.labirint.entities.TestMob;
 import ua.ghost.labirint.gfx.EntityStorage;
 import ua.ghost.labirint.gfx.TileStorage;
 import ua.ghost.mylibrary.Log;
@@ -17,6 +18,8 @@ public class Game extends Canvas implements Runnable  {
 	
 	public static final int WIDTH=25*GameState.TILE_W, HEIGHT=18*GameState.TILE_H;
 	private boolean started = false;
+	
+	public InfoPanel info=null;
 	
 	
 	private Player player;
@@ -51,6 +54,9 @@ public class Game extends Canvas implements Runnable  {
 				
 			}
 		});
+		
+		
+		GameState.setGame(this);
 	}
 	
 public synchronized void startGame(){
@@ -151,5 +157,11 @@ public synchronized void startGame(){
 		player.tick();
 	}
 	
-
+	
+	public void setInfoPane(InfoPanel info){
+		this.info=info;
+	}
+	
+	
+	
 }
