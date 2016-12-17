@@ -64,12 +64,8 @@ public synchronized void startGame(){
 		
 		new TileStorage();
 		new EntityStorage();
-		//floor1=new FloorTile(10, 10);
-		//wall1=new WallTile(35, -5);
-		
 		room=new Level();
 		player = new Player(10*GameState.TILE_W, 10*GameState.TILE_H);
-		
 		
 		
 		Thread gameThread = new Thread(this);
@@ -143,7 +139,7 @@ public synchronized void startGame(){
 		room.render(g);
 		GameState.mobs.render(g);
 		player.render(g);
-		
+		//info.refreshPlayerInfo();
 		
 		
 		//*********

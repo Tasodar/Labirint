@@ -38,10 +38,10 @@ public class Player extends Alive{
 		maxHits=100;
 		hits=maxHits;
 		baseDamage=1;
-		
-		GameState.game.info.setHits(hits+"");
+		armor=10;
 		
 		GameState.setPlaye(this);
+		GameState.game.info.refreshPlayerInfo();
 	}
 	
 	
@@ -183,10 +183,22 @@ public class Player extends Alive{
 	
 	public void hit(int damage){
 		hits-=damage;
-		GameState.game.info.setHits(hits+"");
-		
-		
+		GameState.game.info.refreshPlayerInfo();
 		Log.d("Player", "Меня укусили на "+damage+" хитов");
+	}
+	
+	public int getDamage(){
+		//Здесь будет происходить рассчет
+		return baseDamage;
+		
+	}
+	
+	public int getArmor(){
+		return armor;
+	}
+	
+	public int getHits(){
+		return hits;
 	}
 	
 	

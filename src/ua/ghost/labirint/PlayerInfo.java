@@ -7,11 +7,14 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import ua.ghost.labirint.entities.Player;
+
 public class PlayerInfo extends JPanel {
 
 	private Font font=new Font("Dialog", Font.BOLD, 24 ); 
 	
-	private String hits="234234";
+	private Player player = GameState.player;
+	
 	
 	public PlayerInfo(){
 		
@@ -23,17 +26,23 @@ public class PlayerInfo extends JPanel {
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
+		
+		if(player==null){
+			player=GameState.player;
+			if(player==null) return;
+		}
+		
 		g.setColor(Color.white);
 		g.setFont(font);
-		g.drawString("Хиты: "+hits, 5, 25);
+		
+		g.drawString("Хиты: "+player.getHits(), 5, 25);
+		g.drawString("Атака: "+player.getDamage(), 5, 50);
+		g.drawString("Броня: "+player.getArmor(), 5, 75);
 		
 	}
 	
 	
-	public void setHits(String newValue){
-		hits=newValue;
-		this.repaint();
-	}
+	
 	
 	
 }

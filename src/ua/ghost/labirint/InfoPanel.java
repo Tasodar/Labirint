@@ -13,7 +13,7 @@ public class InfoPanel extends JPanel {
 
 	private BufferedImage bg;
 	private PlayerInfo playerInfo;
-	
+	private GameInfo gameInfo;
 	
 	
 	public InfoPanel(){
@@ -29,6 +29,8 @@ public class InfoPanel extends JPanel {
 		playerInfo = new PlayerInfo();
 		this.add(playerInfo);
 		
+		gameInfo=new GameInfo();
+		this.add(gameInfo);
 		
 		
 		
@@ -41,9 +43,10 @@ public class InfoPanel extends JPanel {
 		
 	}
 	
-	public void setHits(String newValue){
-		playerInfo.setHits(newValue);
-	}
+	
+	public void refreshPlayerInfo(){
+		playerInfo.repaint();
+	} 
 	
 	
 	

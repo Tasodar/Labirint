@@ -6,7 +6,7 @@ import ua.ghost.mylibrary.Log;
 
 public abstract class Alive extends Entity{
 
-	protected int hits, baseDamage, maxHits;
+	public int hits, baseDamage, maxHits, armor;
 	
 	public int getHits(){
 		return hits;
