@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ua.ghost.labirint.Game;
 import ua.ghost.labirint.GameState;
 import ua.ghost.labirint.gfx.Animation;
 import ua.ghost.labirint.gfx.Tile;
+import ua.ghost.labirint.items.Item;
+import ua.ghost.labirint.items.ItemType;
+import ua.ghost.labirint.items.Weapon;
 import ua.ghost.mylibrary.ImageLoader;
 import ua.ghost.mylibrary.Log;
 
@@ -25,8 +29,13 @@ public class Player extends Alive{
 	private boolean inStep=false;
 	private int steps=0;
 	
+	private InUse inUse=new InUse();
+	
 	
 	public Player(int x, int y){
+		
+		inUse.setWeapon(new Weapon("Финка", 3, 6));
+		
 		this.x=x;
 		this.y=y;
 		
@@ -180,16 +189,20 @@ public class Player extends Alive{
 		
 	}
 	
-	
+	@Override
 	public void hit(int damage){
-		hits-=damage;
+		super.hit(damage);
 		GameState.game.info.refreshPlayerInfo();
 		Log.d("Player", "Меня укусили на "+damage+" хитов");
 	}
 	
+	
 	public int getDamage(){
 		//Здесь будет происходить рассчет
-		return baseDamage;
+		
+		int res = (int)baseDamage+ inUse.getWeapon().getAttack(); 
+		Log.d("Player", "Атака: "+res);
+		return res;
 		
 	}
 	

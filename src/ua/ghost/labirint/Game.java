@@ -150,7 +150,7 @@ public synchronized void startGame(){
 	
 	private void tic(){
 		player.tick();
-		player.tick();
+		GameState.mobs.tick();
 	}
 	
 	

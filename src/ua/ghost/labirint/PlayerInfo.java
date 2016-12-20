@@ -36,7 +36,7 @@ public class PlayerInfo extends JPanel {
 		g.setFont(font);
 		
 		g.drawString("Хиты: "+player.getHits(), 5, 25);
-		g.drawString("Атака: "+player.getDamage(), 5, 50);
+		g.drawString("Атака: "+player.baseDamage, 5, 50);
 		g.drawString("Броня: "+player.getArmor(), 5, 75);
 		
 	}
