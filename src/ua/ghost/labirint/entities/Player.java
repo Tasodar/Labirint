@@ -2,6 +2,7 @@ package ua.ghost.labirint.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -146,7 +147,9 @@ public class Player extends Alive{
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(animCurrent.getFrame(), x, y, null);
+		Point screenPos = GameState.currentLevel.levelToScreen(new Point(x, y));
+		
+		g.drawImage(animCurrent.getFrame(), screenPos.x, screenPos.y, null);
 	}
 	
 	private void setLookTo(int newLook){

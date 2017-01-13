@@ -1,6 +1,7 @@
 package ua.ghost.labirint;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import ua.ghost.labirint.gfx.Tile;
@@ -8,31 +9,29 @@ import ua.ghost.labirint.gfx.Tile;
 
 public class Level {
 	
-	private int[] levelData ;
-	private int width=25, height=18;
+	private int[] levelData;
+	private int width=0, height=0;
+	
+	private int shiftX=0, shiftY=0;
 	
 	public Level(){
 		
-		levelData=new int[width*height];
 		
 		loadLevel();
-		
 		GameState.setCurrentLevel(this);
 	}
 	
 	private void loadLevel(){
 		
-		int tileCount=0;
+		this.width=50;
+		this.height=50;
+		levelData=new int[width*height];		
 		
+		int tileCount=0;
 		for(int yInTiles=0; yInTiles<height; yInTiles++){
 			for(int xInTiles=0; xInTiles<width; xInTiles++){
-				
-				
-				
 				if(xInTiles==12 && yInTiles==9){
-					
 					levelData[tileCount]=4;
-					
 					tileCount++;
 					continue;
 					
@@ -41,17 +40,9 @@ public class Level {
 				}else{
 					levelData[tileCount]=1;
 				}
-				
 				tileCount++;
-				
 			}
-			
-			
 		}
-		
-		
-		
-		
 		
 	}
 	
@@ -64,7 +55,7 @@ public class Level {
 			int tileIndex=levelData[i];
 			BufferedImage img=GameState.tileStorage.getTile(tileIndex).getImg();
 			
-			g.drawImage(img, x*GameState.TILE_W, y*GameState.TILE_H, null);
+			g.drawImage(img, x*GameState.TILE_W+shiftX, y*GameState.TILE_H+shiftY, null);
 			
 		}
 		
@@ -82,7 +73,20 @@ public class Level {
 		return GameState.tileStorage.getTile(tileIndex);
 	}
 	
+	public Point screenToLeve(Point pos){
+		//в пикселях
+		Point res = new Point();
+		res.x=pos.x-shiftX;
+		res.y=pos.y-shiftY;
+		return res;
+	}
 	
+	public Point levelToScreen(Point pos){
+		Point res = new Point();
+		res.x=pos.x+shiftX;
+		res.y=pos.y+shiftY;
+		return res;
+	}
 	
 
 }
