@@ -1,5 +1,7 @@
 package ua.ghost.labirint;
 
+import java.awt.Point;
+
 import ua.ghost.labirint.entities.Player;
 import ua.ghost.labirint.gfx.EntityStorage;
 import ua.ghost.labirint.gfx.TileStorage;
@@ -35,5 +37,15 @@ public class GameState {
 	
 	public static void setGame(Game newGame){
 		game=newGame;
+	}
+	
+	
+	public static Point levelToScreen(Point pos){
+
+		Point res = new Point();
+		res.x=pos.x-currentLevel.getShiftX();
+		res.y=pos.y-currentLevel.getShiftY();
+		return res;
+		
 	}
 }

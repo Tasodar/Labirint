@@ -14,6 +14,17 @@ public class Level {
 	
 	private int shiftX=0, shiftY=0;
 	
+	
+	
+	
+	public int getShiftX() {
+		return shiftX;
+	}
+
+	public int getShiftY() {
+		return shiftY;
+	}
+
 	public Level(){
 		
 		
@@ -23,8 +34,8 @@ public class Level {
 	
 	private void loadLevel(){
 		
-		this.width=50;
-		this.height=50;
+		this.width=40;
+		this.height=20;
 		levelData=new int[width*height];		
 		
 		int tileCount=0;
@@ -55,7 +66,7 @@ public class Level {
 			int tileIndex=levelData[i];
 			BufferedImage img=GameState.tileStorage.getTile(tileIndex).getImg();
 			
-			g.drawImage(img, x*GameState.TILE_W+shiftX, y*GameState.TILE_H+shiftY, null);
+			g.drawImage(img, x*GameState.TILE_W-shiftX, y*GameState.TILE_H-shiftY, null);
 			
 		}
 		
@@ -83,10 +94,26 @@ public class Level {
 	
 	public Point levelToScreen(Point pos){
 		Point res = new Point();
-		res.x=pos.x+shiftX;
-		res.y=pos.y+shiftY;
+		res.x=pos.x-shiftX;
+		res.y=pos.y-shiftY;
 		return res;
 	}
 	
+	
+	public void shiftH(int shift){
+		
+		int maxShift=height*GameState.TILE_H-Game.HEIGHT;
+		shiftY+=shift;
+		if(shiftY<0) shiftY=0;
+		if(shiftY>maxShift) shiftY=maxShift;
+	}
+	
+	public void shiftW(int shift){
+		
+		int maxShift=width*GameState.TILE_W-Game.WIDTH;
+		shiftX+=shift;
+		if(shiftX<0) shiftX=0;
+		if(shiftX>maxShift) shiftX=maxShift;
+	}
 
 }

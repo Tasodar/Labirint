@@ -1,6 +1,7 @@
 package ua.ghost.labirint.entities;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import ua.ghost.labirint.GameState;
@@ -35,7 +36,10 @@ public class TestMob extends Alive{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(img, x, y, null);
+		
+		Point screenPos = GameState.currentLevel.levelToScreen(new Point(x, y));
+		
+		g.drawImage(img, screenPos.x, screenPos.y, null);
 		
 	}
 	

@@ -151,6 +151,8 @@ public synchronized void startGame(){
 	private void tic(){
 		player.tick();
 		GameState.mobs.tick();
+		
+		//GameState.currentLevel.shiftH(1);
 	}
 	
 	
