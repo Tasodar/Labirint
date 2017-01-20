@@ -103,7 +103,7 @@ public class Player extends Alive{
 			
 				break;
 			case (LOOK_RIGHT):
-				if(checkStep(x+2+GameState.TILE_W, y+16)) x+=2;
+				if(checkStep(x+1+GameState.TILE_W, y+16)) x+=2;
 				if(screenPos.x>=Game.WIDTH-4*GameState.TILE_W-this.WIDTH){
 					GameState.currentLevel.shiftW(2);
 				}
@@ -118,29 +118,30 @@ public class Player extends Alive{
 			
 				break;
 			case (LOOK_DOWN):
-				if(checkStep(x+16, y+2+GameState.TILE_H)) y+=2;
+				if(checkStep(x+16, y+1+GameState.TILE_H)) y+=2;
 				if(screenPos.y>=Game.HEIGHT-4*GameState.TILE_H-this.HEIGHT){
 					GameState.currentLevel.shiftH(2);
 				}
 				break;
 			}
-			if(steps>=16){
-				inStep=false;
-				steps=0;
-				animCurrent.stop();
-			}
-			
-			//TODO: проверить условие столкновения со стеной
-			
-//			if( (lookTo==LOOK_LEFT || lookTo==LOOK_RIGHT)  && x%GameState.TILE_W==0   ){
-//				inStep=false;
-//				steps=0;
-//				animCurrent.stop();
-//			} else if( (lookTo==LOOK_UP || lookTo==LOOK_DOWN)  && y%GameState.TILE_H==0   ){
+
+//			if(steps>=16){
 //				inStep=false;
 //				steps=0;
 //				animCurrent.stop();
 //			}
+			
+			//TODO: проверить условие столкновения со стеной
+			
+			if( (lookTo==LOOK_LEFT || lookTo==LOOK_RIGHT)  && x%GameState.TILE_W==0   ){
+				inStep=false;
+				steps=0;
+				animCurrent.stop();
+			} else if( (lookTo==LOOK_UP || lookTo==LOOK_DOWN)  && y%GameState.TILE_H==0   ){
+				inStep=false;
+				steps=0;
+				animCurrent.stop();
+			}
 			
 			
 		}

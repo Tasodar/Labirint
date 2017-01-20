@@ -41,11 +41,11 @@ public class GameState {
 	
 	
 	public static Point levelToScreen(Point pos){
-
-		Point res = new Point();
-		res.x=pos.x-currentLevel.getShiftX();
-		res.y=pos.y-currentLevel.getShiftY();
-		return res;
-		
+		return currentLevel.levelToScreen(pos);
 	}
+	
+	public static Point levelToScreen(int x, int y){
+		return currentLevel.levelToScreen(new Point(x, y));
+	}
+	
 }
