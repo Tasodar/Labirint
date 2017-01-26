@@ -158,15 +158,15 @@ public class Player extends Alive{
 	
 	private boolean checkStep(int newX, int newY){
 		
-		Entity mob=GameState.mobs.getEntityIn(newX, newY);
-		if(mob!=null){
-			inStep=false;
-			animCurrent.stop();
-			steps=0;
-			
-			mob.touch();
-			return false;
-		} 
+//		Entity mob=GameState.mobs.getEntityIn(newX, newY);
+//		if(mob!=null){
+//			inStep=false;
+//			animCurrent.stop();
+//			steps=0;
+//			
+//			mob.touch();
+//			return false;
+//		} 
 		
 		Tile stepTo=GameState.currentLevel.getTileIn(newX, newY);
 		return !stepTo.solid;

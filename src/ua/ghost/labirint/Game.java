@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 import ua.ghost.labirint.entities.Player;
 import ua.ghost.labirint.gfx.EntityStorage;
+import ua.ghost.labirint.gfx.ImageLib;
 import ua.ghost.labirint.gfx.TileStorage;
 import ua.ghost.mylibrary.Log;
 
@@ -24,7 +25,7 @@ public class Game extends Canvas implements Runnable  {
 	
 	private Player player;
 	//private Tile floor1, wall1 ;
-	private Level room;
+	//private Level room;
 	
 	
 	public Game(){
@@ -62,10 +63,12 @@ public class Game extends Canvas implements Runnable  {
 public synchronized void startGame(){
 		Log.d("Game", "Игра стартовала");
 		
+		new ImageLib();
+		
 		new TileStorage();
-		new EntityStorage();
-		room=new Level();
-		player = new Player(10*GameState.TILE_W, 10*GameState.TILE_H);
+		new Level();
+		
+		player = GameState.currentLevel.getPlayer();
 		
 		
 		Thread gameThread = new Thread(this);
@@ -133,13 +136,10 @@ public synchronized void startGame(){
 		//Рисовать тута
 		
 		
-		//floor1.render(g);
-		//wall1.render(g);
+	
 		
-		room.render(g);
-		GameState.mobs.render(g);
-		player.render(g);
-		//info.refreshPlayerInfo();
+		GameState.currentLevel.render(g);
+		//GameState.mobs.render(g);
 		
 		
 		//*********
@@ -149,10 +149,10 @@ public synchronized void startGame(){
 	}
 	
 	private void tic(){
-		player.tick();
-		GameState.mobs.tick();
 		
-		//GameState.currentLevel.shiftH(1);
+		GameState.currentLevel.tick();
+		//GameState.mobs.tick();
+	
 	}
 	
 	

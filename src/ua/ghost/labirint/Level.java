@@ -4,16 +4,24 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import ua.ghost.labirint.entities.Alive;
+import ua.ghost.labirint.entities.Player;
+import ua.ghost.labirint.entities.TestMob;
 import ua.ghost.labirint.gfx.Tile;
 
 
 public class Level {
 	
 	private int[] levelData;
-	private int width=0, height=0;
+	private int[] visibleTiles;
 	
+	private Alive[] monsters;
+	
+	private int width=0, height=0;
 	private int shiftX=0, shiftY=0;
 	
+	
+	private Player player;
 	
 	
 	
@@ -29,6 +37,8 @@ public class Level {
 		
 		
 		loadLevel();
+		player = new Player(10*GameState.TILE_W, 10*GameState.TILE_H);
+		
 		GameState.setCurrentLevel(this);
 	}
 	
@@ -36,7 +46,13 @@ public class Level {
 		
 		this.width=40;
 		this.height=20;
-		levelData=new int[width*height];		
+		levelData=new int[width*height];
+		monsters = new Alive[width*height];
+		addMonster(5, 5);
+		addMonster(7, 7);
+		addMonster(9, 9);
+		
+		visibleTiles = new int[(GameState.SCREEN_W+2)*(GameState.SCREEN_H+2)];
 		
 		int tileCount=0;
 		for(int yInTiles=0; yInTiles<height; yInTiles++){
@@ -55,6 +71,9 @@ public class Level {
 			}
 		}
 		
+		
+		
+		
 	}
 	
 	public void render(Graphics g){
@@ -70,6 +89,27 @@ public class Level {
 			
 		}
 		
+		player.render(g);
+		
+		for(int i=0; i<monsters.length; i++){
+			
+			if(monsters[i]!=null){
+				monsters[i].render(g);
+			}
+		}
+		
+	}
+	
+	public void tick(){
+		player.tick();
+		
+		for(int i=0; i<monsters.length; i++){
+			
+			if(monsters[i]!=null){
+				monsters[i].tick();
+			}
+		}
+		
 	}
 	
 	public Tile getTileIn(int x, int y){
@@ -82,6 +122,10 @@ public class Level {
 		int tileIndex=levelData[index];
 		
 		return GameState.tileStorage.getTile(tileIndex);
+	}
+	
+	private int positionToIndex(int posX, int posY){
+		return posY*width+posX;
 	}
 	
 	public Point screenToLeve(Point pos){
@@ -114,6 +158,24 @@ public class Level {
 		shiftX+=shift;
 		if(shiftX<0) shiftX=0;
 		if(shiftX>maxShift) shiftX=maxShift;
+	}
+	
+	private void selectVisibleTiles(){
+		
+		
+		
+	}
+	
+	public Player getPlayer(){
+		return player;
+	}
+	
+	
+	private void addMonster(int monsterX, int monsterY){
+		//Координаты -в тайлах!!! И в системе координат уровня.
+		int index = positionToIndex(monsterX, monsterY);
+		monsters[index] = new TestMob(monsterX*GameState.TILE_W, monsterY*GameState.TILE_H);
+		
 	}
 
 }

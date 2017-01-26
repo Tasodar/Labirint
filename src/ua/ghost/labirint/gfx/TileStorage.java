@@ -12,13 +12,20 @@ public class TileStorage {
 	public TileStorage(){
 		storage = new ArrayList<Tile>();
 		
-		Tile temp = new Tile(ImageLoader.loadImage("/error.png"), false);
+//		Tile temp = new Tile(ImageLoader.loadImage("/error.png"), false);
+//		storage.add(temp);
+//		temp = new Tile(ImageLoader.loadImage("/tile.png"), false);
+//		storage.add(temp);
+//		temp = new Tile(ImageLoader.loadImage("/brick.png"), true);
+//		storage.add(temp);
+
+		Tile temp = new Tile(0, false);
 		storage.add(temp);
-		
-		temp = new Tile(ImageLoader.loadImage("/tile.png"), false);
+		temp = new Tile(1, false);
 		storage.add(temp);
-		temp = new Tile(ImageLoader.loadImage("/brick.png"), true);
+		temp = new Tile(2, true);
 		storage.add(temp);
+
 		
 		GameState.setTileStorage(this);
 		

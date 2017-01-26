@@ -19,7 +19,7 @@ public class EntityStorage {
 		storage.add(new TestMob(5*GameState.TILE_W, 5*GameState.TILE_H));
 		storage.add(new TestMob(15*GameState.TILE_W, 5*GameState.TILE_H));
 		
-		GameState.setMobStorage(this);
+		//GameState.setMobStorage(this);
 		
 	}
 	

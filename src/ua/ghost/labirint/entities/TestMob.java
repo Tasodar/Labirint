@@ -37,8 +37,7 @@ public class TestMob extends Alive{
 	@Override
 	public void render(Graphics g) {
 		
-		Point screenPos = GameState.currentLevel.levelToScreen(new Point(x, y));
-		
+		Point screenPos = GameState.levelToScreen(x, y);
 		g.drawImage(img, screenPos.x, screenPos.y, null);
 		
 	}
