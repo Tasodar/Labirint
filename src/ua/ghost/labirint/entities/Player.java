@@ -31,11 +31,11 @@ public class Player extends Alive{
 	private int steps=0;
 	
 	private InUse inUse=new InUse();
-	
+	public ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public Player(int x, int y){
 		
-		inUse.setWeapon(new Weapon("Финка", 3, 6));
+		inUse.setWeapon(new Weapon("Финка", 3, 6, 0));
 		
 		this.x=x;
 		this.y=y;
@@ -246,7 +246,22 @@ public class Player extends Alive{
 		return hits;
 	}
 	
+	public void pickUpItem(){
+		if(inStep) return;
+		Item item = GameState.currentLevel.getItemIn(x/GameState.TILE_W, y/GameState.TILE_H);
+		
+		if(item==null) GameState.game.info.setGameInfo("Под нами ничего нету");
+		else{
+			GameState.setGameInfo("Нашли предмет "+item.getName());
+			inventory.add(item);
+			GameState.currentLevel.remuveItemFrom(x/GameState.TILE_W, y/GameState.TILE_H);
+			
+		}  
+	}
 	
+	public ArrayList<Item> getInventory(){
+		return inventory;
+	}
 	
 
 }

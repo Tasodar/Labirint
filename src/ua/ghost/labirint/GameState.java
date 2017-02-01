@@ -60,4 +60,10 @@ public class GameState {
 		return currentLevel.levelToScreen(new Point(x, y));
 	}
 	
+	public static void setGameInfo(String message){
+		
+		if(game == null) return;
+		game.info.setGameInfo(message);
+	}
+	
 }

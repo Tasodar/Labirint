@@ -6,11 +6,9 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-
-import javax.swing.JLabel;
+import java.awt.image.BufferedImage;
 
 import ua.ghost.labirint.entities.Player;
-import ua.ghost.labirint.gfx.EntityStorage;
 import ua.ghost.labirint.gfx.ImageLib;
 import ua.ghost.labirint.gfx.TileStorage;
 import ua.ghost.mylibrary.Log;
@@ -18,9 +16,13 @@ import ua.ghost.mylibrary.Log;
 public class Game extends Canvas implements Runnable  {
 	
 	public static final int WIDTH=25*GameState.TILE_W, HEIGHT=18*GameState.TILE_H;
+	public static final int inventoryW=21*GameState.TILE_W, inventoryH=14*GameState.TILE_H;
+	
 	private boolean started = false;
 	
 	public InfoPanel info=null;
+	
+	public boolean openInventory = false;
 	
 	
 	private Player player;
@@ -42,16 +44,24 @@ public class Game extends Canvas implements Runnable  {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_C) player.pickUpItem(); //поднять предмет
+				
+				if(e.getKeyCode()==KeyEvent.VK_X){     //открыть инвентарь
+					Log.d("", "Открываем инвентарь");
+					openInventory = true;
+				} 
 				
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				
-				if(e.getKeyCode()==KeyEvent.VK_A) player.step(Player.LOOK_LEFT);
-				if(e.getKeyCode()==KeyEvent.VK_D) player.step(Player.LOOK_RIGHT);
-				if(e.getKeyCode()==KeyEvent.VK_W) player.step(Player.LOOK_UP);
-				if(e.getKeyCode()==KeyEvent.VK_S) player.step(Player.LOOK_DOWN);
+				if(e.getKeyCode()==KeyEvent.VK_LEFT) player.step(Player.LOOK_LEFT);
+				if(e.getKeyCode()==KeyEvent.VK_RIGHT) player.step(Player.LOOK_RIGHT);
+				if(e.getKeyCode()==KeyEvent.VK_UP) player.step(Player.LOOK_UP);
+				if(e.getKeyCode()==KeyEvent.VK_DOWN) player.step(Player.LOOK_DOWN);
+				
+				if(e.getKeyCode()==KeyEvent.VK_ESCAPE && openInventory) openInventory=false;
 				
 			}
 		});
@@ -139,6 +149,8 @@ public synchronized void startGame(){
 	
 		
 		GameState.currentLevel.render(g);
+		if(openInventory) drawInventory(g);
+		
 		//GameState.mobs.render(g);
 		
 		
@@ -150,8 +162,9 @@ public synchronized void startGame(){
 	
 	private void tic(){
 		
+		if(openInventory) return;
 		GameState.currentLevel.tick();
-		//GameState.mobs.tick();
+
 	
 	}
 	
@@ -160,6 +173,18 @@ public synchronized void startGame(){
 		this.info=info;
 	}
 	
-	
+	private void drawInventory(Graphics g){
+		
+		g.setColor(new Color(0, 0, 0, 200));
+		g.fillRect((WIDTH-inventoryW)/2, (HEIGHT-inventoryH)/2, inventoryW, inventoryH);
+		
+		for(int i=0; i<player.inventory.size(); i++){
+			
+			BufferedImage icon=GameState.img.getImageById(player.inventory.get(i).getImageIndex());
+			g.drawImage(icon, (WIDTH-inventoryW)/2+i*32, (HEIGHT-inventoryH)/2+i*32, null);
+		}
+		
+		
+	}
 	
 }

@@ -8,12 +8,15 @@ import ua.ghost.labirint.entities.Alive;
 import ua.ghost.labirint.entities.Player;
 import ua.ghost.labirint.entities.TestMob;
 import ua.ghost.labirint.gfx.Tile;
+import ua.ghost.labirint.items.Item;
+import ua.ghost.labirint.items.Weapon;
 
 
 public class Level {
 	
 	private int[] levelData;
-	private int[] visibleTiles;
+	private Item[] items;
+	
 	
 	private Alive[] monsters;
 	
@@ -48,11 +51,16 @@ public class Level {
 		this.height=20;
 		levelData=new int[width*height];
 		monsters = new Alive[width*height];
+		items = new Item[width*height];
+		
+		
+		items[165] = new Weapon("Бандитский нож", 3, 6, 10);
+		
 		addMonster(5, 5);
 		addMonster(7, 7);
 		addMonster(9, 9);
 		
-		visibleTiles = new int[(GameState.SCREEN_W+2)*(GameState.SCREEN_H+2)];
+		//visibleTiles = new int[(GameState.SCREEN_W+2)*(GameState.SCREEN_H+2)];
 		
 		int tileCount=0;
 		for(int yInTiles=0; yInTiles<height; yInTiles++){
@@ -87,6 +95,18 @@ public class Level {
 			
 			g.drawImage(img, x*GameState.TILE_W-shiftX, y*GameState.TILE_H-shiftY, null);
 			
+		}
+		
+		for(int i=0; i<items.length; i++){
+			if(items[i]!=null){
+				int y=i/width*GameState.TILE_H;
+				int x=i%width*GameState.TILE_W;
+				BufferedImage img = GameState.img.getImageById( items[i].getImageIndex());
+				
+				g.drawImage(img, x-shiftX, y-shiftY, null);
+				
+				
+			}
 		}
 		
 		player.render(g);
@@ -176,6 +196,17 @@ public class Level {
 		int index = positionToIndex(monsterX, monsterY);
 		monsters[index] = new TestMob(monsterX*GameState.TILE_W, monsterY*GameState.TILE_H);
 		
+	}
+	
+	public Item getItemIn(int x, int y){
+		//приходят координаты в тайлах, в системе координат уровня
+		int index = y*width+x;
+		return items[index];
+	}
+	
+	public void remuveItemFrom(int x, int y){
+		int index = y*width+x;
+		items[index]=null;
 	}
 
 }

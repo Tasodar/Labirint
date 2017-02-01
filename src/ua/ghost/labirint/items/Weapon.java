@@ -6,12 +6,13 @@ public class Weapon extends Item {
 	private int dise = 6;
 	
 	
-	public Weapon(String name, int cast, int dise){
+	public Weapon(String name, int cast, int dise, int imageIndex){
 		type=ItemType.weapon;
 		
 		this.name=name;
 		this.cast=cast;
 		this.dise=dise;
+		this.imageIndex=imageIndex;
 		
 		
 	}

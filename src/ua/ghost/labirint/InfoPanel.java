@@ -48,6 +48,10 @@ public class InfoPanel extends JPanel {
 		playerInfo.repaint();
 	} 
 	
+	public void setGameInfo(String message){
+		gameInfo.setText(message);
+	}
+	
 	
 	
 }

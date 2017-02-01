@@ -17,7 +17,8 @@ public class TestMob extends Alive{
 		this.x=x;
 		this.y=y;
 		
-		img=ImageLoader.loadImage("/monster01.png");
+		//img=ImageLoader.loadImage("/monster01.png");
+		img=GameState.img.getImageById(8);
 		
 		maxHits=30;
 		hits=maxHits;
