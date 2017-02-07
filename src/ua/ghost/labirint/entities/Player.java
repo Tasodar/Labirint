@@ -11,6 +11,8 @@ import ua.ghost.labirint.Game;
 import ua.ghost.labirint.GameState;
 import ua.ghost.labirint.gfx.Animation;
 import ua.ghost.labirint.gfx.Tile;
+import ua.ghost.labirint.items.Armor;
+import ua.ghost.labirint.items.Food;
 import ua.ghost.labirint.items.Item;
 import ua.ghost.labirint.items.ItemType;
 import ua.ghost.labirint.items.Weapon;
@@ -52,6 +54,14 @@ public class Player extends Alive{
 		
 		GameState.setPlaye(this);
 		GameState.game.info.refreshPlayerInfo();
+		
+		addToInventory();
+	}
+	
+	private void addToInventory(){
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
 	}
 	
 	

@@ -16,7 +16,7 @@ import ua.ghost.mylibrary.Log;
 public class Game extends Canvas implements Runnable  {
 	
 	public static final int WIDTH=25*GameState.TILE_W, HEIGHT=18*GameState.TILE_H;
-	public static final int inventoryW=21*GameState.TILE_W, inventoryH=14*GameState.TILE_H;
+	private InventoryMenu iMenu;
 	
 	private boolean started = false;
 	
@@ -47,7 +47,6 @@ public class Game extends Canvas implements Runnable  {
 				if(e.getKeyCode()==KeyEvent.VK_C) player.pickUpItem(); //поднять предмет
 				
 				if(e.getKeyCode()==KeyEvent.VK_X){     //открыть инвентарь
-					Log.d("", "Открываем инвентарь");
 					openInventory = true;
 				} 
 				
@@ -56,18 +55,31 @@ public class Game extends Canvas implements Runnable  {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				
-				if(e.getKeyCode()==KeyEvent.VK_LEFT) player.step(Player.LOOK_LEFT);
-				if(e.getKeyCode()==KeyEvent.VK_RIGHT) player.step(Player.LOOK_RIGHT);
-				if(e.getKeyCode()==KeyEvent.VK_UP) player.step(Player.LOOK_UP);
-				if(e.getKeyCode()==KeyEvent.VK_DOWN) player.step(Player.LOOK_DOWN);
+				if(openInventory){
+					if(e.getKeyCode()==KeyEvent.VK_LEFT) iMenu.cursorX--;
+					if(e.getKeyCode()==KeyEvent.VK_RIGHT) iMenu.cursorX++;
+					if(e.getKeyCode()==KeyEvent.VK_UP) iMenu.cursorY--;
+					if(e.getKeyCode()==KeyEvent.VK_DOWN) iMenu.cursorY++;
+					
+					if(e.getKeyCode()==KeyEvent.VK_ESCAPE) openInventory=false;
+				}else{
+					if(e.getKeyCode()==KeyEvent.VK_LEFT) player.step(Player.LOOK_LEFT);
+					if(e.getKeyCode()==KeyEvent.VK_RIGHT) player.step(Player.LOOK_RIGHT);
+					if(e.getKeyCode()==KeyEvent.VK_UP) player.step(Player.LOOK_UP);
+					if(e.getKeyCode()==KeyEvent.VK_DOWN) player.step(Player.LOOK_DOWN);
+				}
 				
-				if(e.getKeyCode()==KeyEvent.VK_ESCAPE && openInventory) openInventory=false;
+				
+				
+				
+				
 				
 			}
 		});
 		
 		
 		GameState.setGame(this);
+		iMenu = new InventoryMenu();
 	}
 	
 public synchronized void startGame(){
@@ -149,7 +161,7 @@ public synchronized void startGame(){
 	
 		
 		GameState.currentLevel.render(g);
-		if(openInventory) drawInventory(g);
+		if(openInventory) iMenu.render(g);
 		
 		//GameState.mobs.render(g);
 		
@@ -168,23 +180,10 @@ public synchronized void startGame(){
 	
 	}
 	
-	
 	public void setInfoPane(InfoPanel info){
 		this.info=info;
 	}
 	
-	private void drawInventory(Graphics g){
-		
-		g.setColor(new Color(0, 0, 0, 200));
-		g.fillRect((WIDTH-inventoryW)/2, (HEIGHT-inventoryH)/2, inventoryW, inventoryH);
-		
-		for(int i=0; i<player.inventory.size(); i++){
-			
-			BufferedImage icon=GameState.img.getImageById(player.inventory.get(i).getImageIndex());
-			g.drawImage(icon, (WIDTH-inventoryW)/2+i*32, (HEIGHT-inventoryH)/2+i*32, null);
-		}
-		
-		
-	}
+
 	
 }
