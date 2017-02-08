@@ -17,5 +17,10 @@ public class Armor extends Item {
 	public int getDef(){
 		return def;
 	}
+	
+	@Override
+	public String getInfo(){
+		return " защита: "+def;
+	}
 
 }

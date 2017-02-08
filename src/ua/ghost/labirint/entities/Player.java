@@ -62,6 +62,28 @@ public class Player extends Alive{
 		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
 		inventory.add(new Armor("Кожаная броня", 5, 6));
 		inventory.add(new Food("еда мужская", 5, 7));
+		
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
+		inventory.add(new Armor("Кожаная броня", 5, 6));
+		inventory.add(new Food("еда мужская", 5, 7));
 	}
 	
 	

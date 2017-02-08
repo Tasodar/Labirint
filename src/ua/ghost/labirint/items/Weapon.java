@@ -27,4 +27,10 @@ public class Weapon extends Item {
 	}
 	
 	
+	@Override
+	public String getInfo(){
+		return " атака: "+cast+"d"+dise;
+	}
+	
+	
 }

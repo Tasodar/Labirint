@@ -4,6 +4,8 @@ public class Food extends Item{
 	
 	private int energy;
 	
+	
+
 	public Food(String name, int energy, int imageIndex){
 		type = ItemType.food;
 		this.name = name;
@@ -13,5 +15,16 @@ public class Food extends Item{
 	}
 	
 	
+	
+	@Override
+	public String getInfo(){
+		return " енергитическая ценность: "+energy;
+	}
+	
+	public int getEnergy() {
+		return energy;
+	}
+
+
 	
 }

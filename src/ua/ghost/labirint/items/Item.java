@@ -22,6 +22,9 @@ public class Item {
 		return imageIndex;
 	}
 	
+	public String getInfo(){
+		return "нетути";
+	}
 	
 	
 }

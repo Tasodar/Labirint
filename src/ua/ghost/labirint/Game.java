@@ -47,7 +47,9 @@ public class Game extends Canvas implements Runnable  {
 				if(e.getKeyCode()==KeyEvent.VK_C) player.pickUpItem(); //поднять предмет
 				
 				if(e.getKeyCode()==KeyEvent.VK_X){     //открыть инвентарь
+					
 					openInventory = true;
+					iMenu.showMenu();
 				} 
 				
 			}
@@ -56,10 +58,10 @@ public class Game extends Canvas implements Runnable  {
 			public void keyPressed(KeyEvent e) {
 				
 				if(openInventory){
-					if(e.getKeyCode()==KeyEvent.VK_LEFT) iMenu.cursorX--;
-					if(e.getKeyCode()==KeyEvent.VK_RIGHT) iMenu.cursorX++;
-					if(e.getKeyCode()==KeyEvent.VK_UP) iMenu.cursorY--;
-					if(e.getKeyCode()==KeyEvent.VK_DOWN) iMenu.cursorY++;
+					if(e.getKeyCode()==KeyEvent.VK_LEFT) iMenu.muveCursorX(-1);
+					if(e.getKeyCode()==KeyEvent.VK_RIGHT) iMenu.muveCursorX(1);
+					if(e.getKeyCode()==KeyEvent.VK_UP) iMenu.muveCursorY(-1);
+					if(e.getKeyCode()==KeyEvent.VK_DOWN) iMenu.muveCursorY(1);
 					
 					if(e.getKeyCode()==KeyEvent.VK_ESCAPE) openInventory=false;
 				}else{
