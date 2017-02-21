@@ -1,5 +1,7 @@
 package ua.ghost.labirint.items;
 
+import ua.ghost.labirint.GameState;
+
 public class Armor extends Item {
 	
 	private int def;
@@ -21,6 +23,15 @@ public class Armor extends Item {
 	@Override
 	public String getInfo(){
 		return " защита: "+def;
+	}
+	
+	@Override
+	public void use(){
+		Item old = GameState.player.reEquip(this);
+		if(old!=null) GameState.player.inventory.add(old);
+		GameState.player.inventory.remove(this);
+		
+		
 	}
 
 }

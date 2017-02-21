@@ -44,13 +44,26 @@ public class Game extends Canvas implements Runnable  {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_C) player.pickUpItem(); //поднять предмет
 				
-				if(e.getKeyCode()==KeyEvent.VK_X){     //открыть инвентарь
+				if(openInventory){
 					
-					openInventory = true;
-					iMenu.showMenu();
-				} 
+					if(e.getKeyCode()==KeyEvent.VK_C){						//бросить предмет
+						iMenu.dropItem();
+					}  	
+					if(e.getKeyCode()==KeyEvent.VK_X){     					//использовать
+						iMenu.useItem();
+					}
+					
+				}else{
+					if(e.getKeyCode()==KeyEvent.VK_C) player.pickUpItem(); //поднять предмет
+					if(e.getKeyCode()==KeyEvent.VK_X){     //открыть инвентарь
+						openInventory = true;
+						iMenu.showMenu();
+					}
+				}
+				
+				
+				 
 				
 			}
 			

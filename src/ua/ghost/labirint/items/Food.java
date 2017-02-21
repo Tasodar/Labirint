@@ -1,5 +1,8 @@
 package ua.ghost.labirint.items;
 
+import ua.ghost.labirint.GameState;
+import ua.ghost.mylibrary.Log;
+
 public class Food extends Item{
 	
 	private int energy;
@@ -25,6 +28,10 @@ public class Food extends Item{
 		return energy;
 	}
 
+	@Override
+	public void use(){
+		Log.d("", "Мы едим "+name);
+	}
 
 	
 }

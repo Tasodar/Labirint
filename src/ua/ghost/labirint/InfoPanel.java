@@ -46,6 +46,7 @@ public class InfoPanel extends JPanel {
 	
 	public void refreshPlayerInfo(){
 		playerInfo.repaint();
+		
 	} 
 	
 	public void setGameInfo(String message){

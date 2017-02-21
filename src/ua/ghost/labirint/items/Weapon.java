@@ -1,5 +1,7 @@
 package ua.ghost.labirint.items;
 
+import ua.ghost.labirint.GameState;
+
 public class Weapon extends Item {
 	
 	private int cast=3;
@@ -26,10 +28,23 @@ public class Weapon extends Item {
 		return attac;
 	}
 	
+	public String getStats(){
+		return " "+cast+"d"+dise;
+	}
+	
 	
 	@Override
 	public String getInfo(){
 		return " атака: "+cast+"d"+dise;
+	}
+	
+	@Override
+	public void use(){
+		Item old = GameState.player.reEquip(this);
+		if(old!=null) GameState.player.inventory.add(old);
+		GameState.player.inventory.remove(this);
+		
+		
 	}
 	
 	

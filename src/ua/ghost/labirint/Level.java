@@ -208,5 +208,12 @@ public class Level {
 		int index = y*width+x;
 		items[index]=null;
 	}
+	
+	public void putItemTo(Item item, int x, int y){
+		int index =y*width+x;
+		items[index]=item;
+		
+		
+	}
 
 }

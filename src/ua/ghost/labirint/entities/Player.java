@@ -32,7 +32,7 @@ public class Player extends Alive{
 	private boolean inStep=false;
 	private int steps=0;
 	
-	private InUse inUse=new InUse();
+	public InUse inUse=new InUse();
 	public ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public Player(int x, int y){
@@ -50,7 +50,7 @@ public class Player extends Alive{
 		maxHits=100;
 		hits=maxHits;
 		baseDamage=1;
-		armor=10;
+		armor=1;
 		
 		GameState.setPlaye(this);
 		GameState.game.info.refreshPlayerInfo();
@@ -255,6 +255,12 @@ public class Player extends Alive{
 	
 	@Override
 	public void hit(int damage){
+		
+//		int armor=1;
+//		if(inUse.getArmor()!=null){
+//			armor = inUse.getArmor().getDef();
+//		}
+		
 		super.hit(damage);
 		GameState.game.info.refreshPlayerInfo();
 		Log.d("Player", "Меня укусили на "+damage+" хитов");
@@ -271,7 +277,14 @@ public class Player extends Alive{
 	}
 	
 	public int getArmor(){
-		return armor;
+		
+		int def = 0;
+		
+		if(inUse.getArmor()!=null) def = inUse.getArmor().getDef();
+		
+		return armor+def;
+		
+		
 	}
 	
 	public int getHits(){
@@ -293,6 +306,20 @@ public class Player extends Alive{
 	
 	public ArrayList<Item> getInventory(){
 		return inventory;
+	}
+	
+	public Item reEquip(Item toEquip){
+		Item old = null;
+		if(toEquip.getType() == ItemType.armor){
+			old = inUse.getArmor();
+			inUse.setArmor((Armor)toEquip);
+		} else if(toEquip.getType() == ItemType.weapon){
+			old = inUse.getWeapon();
+			inUse.setWeapon((Weapon)toEquip);
+		}
+		
+		GameState.game.info.refreshPlayerInfo();
+		return old;
 	}
 	
 

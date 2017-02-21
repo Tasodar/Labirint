@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import ua.ghost.labirint.entities.Player;
+import ua.ghost.labirint.items.Weapon;
 
 public class PlayerInfo extends JPanel {
 
@@ -32,11 +33,17 @@ public class PlayerInfo extends JPanel {
 			if(player==null) return;
 		}
 		
+		
+		String wStats="";
+		Weapon weapon = player.inUse.getWeapon();
+		if(weapon!=null) wStats=weapon.getStats();
+		
+		
 		g.setColor(Color.white);
 		g.setFont(font);
 		
 		g.drawString("Хиты: "+player.getHits(), 5, 25);
-		g.drawString("Атака: "+player.baseDamage, 5, 50);
+		g.drawString("Атака: "+player.baseDamage+" +"+wStats, 5, 50);
 		g.drawString("Броня: "+player.getArmor(), 5, 75);
 		
 	}
