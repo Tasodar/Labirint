@@ -25,7 +25,10 @@ public class TileStorage {
 		storage.add(temp);
 		temp = new Tile(2, true);
 		storage.add(temp);
-
+		temp = new Tile(11, true);
+		storage.add(temp);
+		temp= new Tile(3, false);
+		storage.add(temp);
 		
 		GameState.setTileStorage(this);
 		

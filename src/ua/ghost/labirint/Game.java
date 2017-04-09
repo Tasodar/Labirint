@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -61,10 +63,6 @@ public class Game extends Canvas implements Runnable  {
 						iMenu.showMenu();
 					}
 				}
-				
-				
-				 
-				
 			}
 			
 			@Override
@@ -84,17 +82,36 @@ public class Game extends Canvas implements Runnable  {
 					if(e.getKeyCode()==KeyEvent.VK_DOWN) player.step(Player.LOOK_DOWN);
 				}
 				
-				
-				
-				
-				
-				
 			}
 		});
 		
 		
 		GameState.setGame(this);
 		iMenu = new InventoryMenu();
+		
+		
+		this.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//e.
+				int x=e.getX();
+				int y=e.getY();
+				x=(x + GameState.currentLevel.getShiftX())/GameState.TILE_W;
+				y=(y + GameState.currentLevel.getShiftY())/GameState.TILE_H;
+				
+				
+				
+				Log.d("Mouse", "X="+x+" Y="+y);
+			}
+		});
 	}
 	
 public synchronized void startGame(){

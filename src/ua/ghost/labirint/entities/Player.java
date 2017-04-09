@@ -14,6 +14,7 @@ import ua.ghost.labirint.gfx.Tile;
 import ua.ghost.labirint.items.Armor;
 import ua.ghost.labirint.items.Food;
 import ua.ghost.labirint.items.Item;
+import ua.ghost.labirint.items.ItemFactory;
 import ua.ghost.labirint.items.ItemType;
 import ua.ghost.labirint.items.Weapon;
 import ua.ghost.mylibrary.ImageLoader;
@@ -37,11 +38,11 @@ public class Player extends Alive{
 	
 	public Player(int x, int y){
 		
+		super(x, y);
+		
 		inUse.setWeapon(new Weapon("Финка", 3, 6, 0));
-		
-		this.x=x;
-		this.y=y;
-		
+//		this.x=x;
+//		this.y=y;
 		set = ImageLoader.loadImage("/char01.png");
 		img=set.getSubimage(0, 0, 32, 32);
 		
@@ -59,31 +60,11 @@ public class Player extends Alive{
 	}
 	
 	private void addToInventory(){
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
+		inventory.add(ItemFactory.createItemByCode(2));
+		inventory.add(ItemFactory.createItemByCode(3));
+		inventory.add(ItemFactory.createItemByCode(4));
 		
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
-		inventory.add(new Weapon("Меч тысячи истин", 4, 6, 5));
-		inventory.add(new Armor("Кожаная броня", 5, 6));
-		inventory.add(new Food("еда мужская", 5, 7));
+
 	}
 	
 	
@@ -169,10 +150,12 @@ public class Player extends Alive{
 				inStep=false;
 				steps=0;
 				animCurrent.stop();
+				stepEvent();
 			} else if( (lookTo==LOOK_UP || lookTo==LOOK_DOWN)  && y%GameState.TILE_H==0   ){
 				inStep=false;
 				steps=0;
 				animCurrent.stop();
+				stepEvent();
 			}
 			
 			
@@ -199,9 +182,9 @@ public class Player extends Alive{
 //			mob.touch();
 //			return false;
 //		} 
-		
 		Tile stepTo=GameState.currentLevel.getTileIn(newX, newY);
-		return !stepTo.solid;
+		boolean res=!stepTo.solid;
+		return res;
 		
 	}
 	
@@ -238,6 +221,29 @@ public class Player extends Alive{
 		
 	}
 	
+	public Alive checkMonsterIn(int direct){
+		
+		Alive mob=null;
+		
+		switch(direct){
+		case(LOOK_DOWN):
+			mob = GameState.currentLevel.getMobIn(x, y+GameState.TILE_H);
+			break;
+		case(LOOK_LEFT):
+			mob = GameState.currentLevel.getMobIn(x-GameState.TILE_W, y);
+			break;
+		case(LOOK_RIGHT):
+			mob = GameState.currentLevel.getMobIn(x+GameState.TILE_W, y);
+			break;
+		case(LOOK_UP):
+			mob = GameState.currentLevel.getMobIn(x, y-GameState.TILE_W);
+			break;
+		}
+		
+		return mob;
+		
+	}
+	
 	public void step(int direct){
 		
 		if(inStep) return;
@@ -246,6 +252,21 @@ public class Player extends Alive{
 			setLookTo(direct);
 			return;
 		}
+		
+		
+		
+		//вот тут происходит событие - шаг игрока
+		Alive monster=checkMonsterIn(direct);
+		if(monster!=null){
+			//стукнуть того, кто перед нами
+			monster.hit(getDamage());
+			//сгенерировать событие хода
+			stepEvent();
+			return;
+		}
+		
+		
+		//stepEvent();
 		
 		inStep=true;
 		animCurrent.start();
@@ -257,9 +278,11 @@ public class Player extends Alive{
 	public void hit(int damage){
 		
 //		int armor=1;
-//		if(inUse.getArmor()!=null){
-//			armor = inUse.getArmor().getDef();
-//		}
+		if(inUse.getArmor()!=null){
+			armor = inUse.getArmor().getDef();
+			damage-=armor;
+			if(damage<0) damage=0;
+		}
 		
 		super.hit(damage);
 		GameState.game.info.refreshPlayerInfo();
@@ -320,6 +343,20 @@ public class Player extends Alive{
 		
 		GameState.game.info.refreshPlayerInfo();
 		return old;
+	}
+	
+	private void stepEvent(){
+		
+		 ArrayList<Alive> monsters= GameState.currentLevel.getVisibleMonstars();
+		 for(Alive monster : monsters){
+			 monster.onPlayerStep();
+		 }
+		
+	}
+
+	@Override
+	public void onPlayerStep() {
+			
 	}
 	
 

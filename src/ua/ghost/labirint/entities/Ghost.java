@@ -6,18 +6,15 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import ua.ghost.labirint.GameState;
-import ua.ghost.mylibrary.ImageLoader;
 import ua.ghost.mylibrary.Log;
 
-public class TestMob extends Alive{
+public class Ghost extends Alive {
 
-	
 	public static final int LOOK_LEFT=1, LOOK_RIGHT=2, LOOK_UP=3, LOOK_DOWN=4;
-	public final int MAX_DIST=3; // в тайлах;
+	public final int MAX_DIST=4; // в тайлах;
+	private final int LOOK_DIST=5; //в тайлах
 	
-	private final int LOOK_DIST=4; //в тайлах
-	
-	private int cast=3;
+	private int cast=2;
 	private int dise = 6;
 	
 	private BufferedImage img;
@@ -25,12 +22,12 @@ public class TestMob extends Alive{
 	private boolean inStep = false;
 	private int lookTo = 1;
 	
-	public TestMob(int x, int y){
+	public Ghost(int x, int y){
 		
 		super(x, y);
 		
-		img=GameState.img.getImageById(8);
-		maxHits=30;
+		img=GameState.img.getImageById(9);
+		maxHits=20;
 		hits=maxHits;
 		baseDamage=1;
 		
@@ -41,23 +38,7 @@ public class TestMob extends Alive{
 	
 	@Override
 	public void tick() {
-		
-		//if(player.getX()<=x+32+10 && player.getX()>x && player.getY()==y ) x-=32;
-		//if(player.getX()<=x-32-10 && player.getX()>x && player.getY()==y ) x+=32;
-		
-		
-		//x+=velX;
-		//if(x>=spawnX+3*GameState.TILE_W) velX=-1;
-		//if(x<=spawnX-3*GameState.TILE_W) velX=1;
-		
 		if(inStep){
-			
-//			if(lookTo==LOOK_LEFT){
-//				x-=2;
-//			} else{
-//				x+=2;
-//			}
-			
 			switch(lookTo){
 			case(LOOK_LEFT):
 				x-=2;
@@ -87,11 +68,8 @@ public class TestMob extends Alive{
 
 	@Override
 	public void render(Graphics g) {
-		
 		Point screenPos = GameState.levelToScreen(x, y);
 		g.drawImage(img, screenPos.x, screenPos.y, null);
-		
-		
 		int healthInd = hits*32/maxHits;
 		if(healthInd<0) healthInd=0;
 		g.setColor(Color.green);
